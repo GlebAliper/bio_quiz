@@ -1,0 +1,102 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Добавление новой викторины
+{% endblock %}
+
+{% block page-lead %}
+Заполните:
+<li/> Имя викторины
+<li/> Описание викторины
+<li/> Картинку (опционально)
+<li/> 3 вопроса
+{% endblock %}
+
+{% block content %}
+<div class="container px-4 py-5" id="project-contents">
+    <form method="post" id="quiz-form" enctype="multipart/form-data">
+
+        <div class="w-50">
+            <label for="quizName" class="form-label">Имя викторины</label>
+            <input type="text" class="form-control" name="quizName" id="quizName" placeholder="Имя" required>
+
+            <div class="mb-3">
+                <label for="quizDescription" class="form-label">Описание</label>
+                <textarea class="form-control" id="quizDescription" rows="3" name="quizDescription" ></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Картинка</label>
+                <input class="form-control" type="file" id="formFile" name="image">
+            </div>
+        </div>
+
+
+        <h2 class="mb-2 border-bottom">Вопросы</h2>
+        <div class="mb-3">
+            {% for i in question_count%}
+            <div class="mb-5 bg-light bg-gradient rounded-3 shadow-lg p-3 mb-5 bg-body">
+                <div class="container mb-3">
+                    <h5>Вопрос {{forloop.counter}}</h5>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="question_{{forloop.counter0}}" required></textarea>
+                    <div class="row pt-5">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text" id="inputGroup-sizing-default_{{forloop.counter}}_1">Вариант ответа 1</span>
+                                <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                       name="answer_{{forloop.counter0}}_0" required>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default_{{forloop.counter}}_2">Вариант ответа 2</span>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                           name="answer_{{forloop.counter0}}_1" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default_{{forloop.counter}}_3">Вариант ответа 3</span>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                           name="answer_{{forloop.counter0}}_2" required>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="col">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="inputGroup-sizing-default_{{forloop.counter}}_4">Вариант ответа 4</span>
+                                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
+                                           name="answer_{{forloop.counter0}}_3">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col p-3">
+                            <label>Верный ответ</label>
+                            <select class="form-select form-select-sm w-25" aria-label=".form-select-sm example" name="correct_{{forloop.counter0}}">
+                                <option value="0" selected>Вариант ответа 1</option>
+                                <option value="1">Вариант ответа 2</option>
+                                <option value="2">Вариант ответа 3</option>
+                                <option value="3">Вариант ответа 4</option>
+                            </select>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+
+        <div class="col-12">
+            <button class="btn btn-primary" type="submit" formaction="/quizzes/">Сохранить</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

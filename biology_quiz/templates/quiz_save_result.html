@@ -1,0 +1,17 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+{% if success %}Успех!{% else %}Ошибка!{% endif %}
+{% endblock %}
+
+{% block page-lead %}
+{{comment}}
+{% endblock %}
+
+{% block content %}
+<div class="container px-4 py-5" id="project-contents">
+   <a href="/" class="top-50 end-0 translate-middle-y">
+                    <button type="button" class="btn btn-primary btn-sm">Вернуться на главную</button>
+                </a>
+</div>
+{% endblock %}

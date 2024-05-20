@@ -1,0 +1,90 @@
+{% extends "base_page.html" %}
+
+{% block page-title %}
+Добро пожаловать на сайт викторин по биологии!
+{% endblock %}
+
+{% block page-lead %}
+Здесь вы можете проверить свои знания в области биологии, играя в увлекательные викторины.<br/>
+Выберите одну из доступных викторин, ответьте на вопросы и узнайте, насколько хорошо вы разбираетесь в этой науке.<br/>
+Помимо игры, вы также можете редактировать существующие викторины, чтобы настроить контент под свои потребности.<br/><br/>
+Присоединяйтесь и углубляйтесь в мир биологии с нашим сайтом!
+{% endblock %}
+
+{% block content %}
+<div class="container px-4 py-5" id="project-contents">
+    <h2 class="mb-2 border-bottom">Викторины</h2>
+    <div class="mb-4">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                {% for id, name, desc, image in quizzes %}
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"
+                        aria-current="true" aria-label="Slide 1"></button>
+                {% endfor %}
+            </div>
+            <div class="carousel-inner">
+                {% for id, name, desc, image in quizzes %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %} ">
+                    <a href="quizzes/{{id}}/play"><img style="object-fit: cover;    vertical-align: middle;    border-style: none;    height: 30vh;"
+                                                       src="{{image}}"
+                                                       class="d-block w-100 rounded-5"
+                                                       alt="{{name}}">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 style="text-shadow: 1px 2px 1px black;">{{name}}</h5>
+                            <p style="text-shadow: 1px 2px 1px black;">Сыграть</p>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+
+
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Предыдущий</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Следующий</span>
+            </button>
+
+        </div>
+        <div class="row g-4 row-cols-1 row-cols-lg-2 mt-2">
+            <div class="col"></div>
+
+            <div class="col d-flex justify-content-end align-items-center">
+                <a href="quizzes/add" class="top-50 end-0 translate-middle-y">
+                    <button type="button" class="btn btn-primary btn-sm">Добавить викторину</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="pb-2 border-bottom">Статистика</h2>
+    <table class="table table-borderless">
+        <thead>
+        <tr>
+            <th scope="col">Место</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Игр</th>
+            <th scope="col">Ответов</th>
+            <th scope="col">Верных</th>
+            <th scope="col">% верных ответов</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for name, games, answers, correct_answers, percent in user_stats %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{name}}</td>
+            <td>{{games}}</td>
+            <td>{{answers}}</td>
+            <td>{{correct_answers}}</td>
+            <td>{{percent}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+{% endblock %}
